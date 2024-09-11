@@ -1,0 +1,41 @@
+{
+  "name": "pptx-sweep",
+  "license": "MIT",
+  "version": "0.0.21",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Marcdj-02/pptx-sweep.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "pptxsweep",
+    "pptx sweep",
+    "pptx sweeper",
+    "pptx",
+    "sweep",
+    "pptx cleaner",
+    "powerpoint",
+    "powerpoint cleaner",
+    "powerpoint metadata",
+    "pptx comments",
+    "pptx notes"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build:watch": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "tsc"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "xml-js": "^1.6.11"
+  }
+}
