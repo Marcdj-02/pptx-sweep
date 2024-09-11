@@ -131,5 +131,5 @@ dist
 
 # Custom
 reference/*
-.pptx
-.zip
+*.pptx
+*.zip
