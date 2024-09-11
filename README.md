@@ -14,6 +14,7 @@ const targetFile = "powerpoint-swept.pptx";
 
 await pptxSweep(sourceFile, targetFile, {
   remove: {
+    totalTime: true,
     core: {
       title: true,
       creator: true,
@@ -24,8 +25,12 @@ await pptxSweep(sourceFile, targetFile, {
     },
     thumbnail: true,
     notes: true,
-    comments: true,
+    comments: {
+      modern: true,
+      legacy: true,
+    },
     authors: true,
+    view: true,
   },
 });
 ```
@@ -35,6 +40,7 @@ await pptxSweep(sourceFile, targetFile, {
 ```typescript
 type SweepOptions = {
   remove: {
+    totalTime?: boolean;
     core: {
       title?: boolean;
       creator?: boolean;
@@ -45,14 +51,19 @@ type SweepOptions = {
     };
     thumbnail?: boolean;
     notes?: boolean;
-    comments?: boolean;
+    comments?: {
+      modern?: boolean;
+      legacy?: boolean;
+    };
     authors?: boolean;
+    view?: boolean;
   };
 };
 ```
 
 | Option                      | Description                                                       |
 | --------------------------- | ----------------------------------------------------------------- |
+| `remove.totalTime`          | Remove the total time of the presentation.                        |
 | `remove.core.title`         | Remove the title of the presentation.                             |
 | `remove.core.creator`       | Remove the name of the person who created the presentation.       |
 | `remove.core.lastMofiiedBy` | Remove the name of the person who last modified the presentation. |
@@ -61,5 +72,7 @@ type SweepOptions = {
 | `remove.core.modified`      | Remove the date and time the presentation was last modified.      |
 | `remove.thumbnail`          | Remove the thumbnail image.                                       |
 | `remove.notes`              | Remove the (presenter) notes.                                     |
-| `remove.comments`           | Remove the (modern) comments.                                     |
+| `remove.comments.modern`    | Remove the modern (2018 spec) comments.                           |
+| `remove.comments.legacy`    | Remove the legacy (2006spec) comments.                            |
 | `remove.authors`            | Remove the list of authors.                                       |
+| `remove.view`               | Remove the view settings.                                         |
