@@ -15,5 +15,9 @@ export async function modifyExtendedProperties(
     extended = extended.replace(/<Notes>\d+?<\/Notes>/, "<Notes>0</Notes>");
   }
 
+  if (options.remove?.totalTime) {
+    extended = extended.replace(/<TotalTime>\d+?<\/TotalTime>/, "");
+  }
+
   zip.file(extendedPath, extended);
 }

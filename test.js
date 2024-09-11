@@ -1,19 +1,31 @@
 // import { sweep } from "./dist/index.js";
-const { sweep } = require("./dist/index.js");
+const { pptxSweep } = require("./dist/index.js");
+const fs = require("fs");
 
-sweep("comments.pptx", "comments-swept.pptx", {
-  remove: {
-    core: {
-      title: true,
-      creator: true,
-      lastMofiiedBy: true,
-      revision: true,
-      created: true,
-      modified: true,
+// Read powerpoint directory for files names
+const files = fs.readdirSync("./powerpoints");
+
+for (let i = 0; i < files.length; i++) {
+  const file = files[i];
+  const output = file.replace(".pptx", "-swept2.pptx");
+
+  pptxSweep(`./powerpoints/${file}`, `./powerpoints-swept/${output}`, {
+    remove: {
+      core: {
+        title: true,
+        creator: true,
+        lastModifiedBy: true,
+        revision: true,
+        created: true,
+        modified: true,
+      },
+      notes: true,
+      comments: {
+        modern: true,
+        legacy: true,
+      },
+      authors: true,
+      view: true,
     },
-    thumbnail: true,
-    notes: true,
-    comments: true,
-    authors: true,
-  },
-});
+  });
+}

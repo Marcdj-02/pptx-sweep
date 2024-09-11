@@ -11,6 +11,7 @@ import { modifySlideMaster } from "./document/slideMaster";
 import { modifyPresProps } from "./document/presProps";
 import { modifyHandoutMaster } from "./document/handoutMaster";
 import { modifyAuthors } from "./document/authors";
+import { modifyCommentAuthors } from "./document/commentAuthors";
 
 async function todoOverwrite(zip: JSZip, path: string, options: SweepOptions) {
   throw new Error("TODO: Overwrite the file");
@@ -43,6 +44,8 @@ const relationshipTypes: Record<
     modifyAuthors,
   "http://schemas.openxmlformats.org/officeDocument/2006/relationships/handoutMaster":
     modifyHandoutMaster,
+  "http://schemas.openxmlformats.org/officeDocument/2006/relationships/commentAuthors":
+    modifyCommentAuthors,
 };
 
 export async function modifyDocument(

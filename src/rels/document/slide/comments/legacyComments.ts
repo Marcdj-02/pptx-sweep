@@ -1,14 +1,14 @@
 import JSZip from "jszip";
-import { SweepOptions } from "../../..";
-import { getRelsPath } from "../../../utils/paths";
+import { SweepOptions } from "../../../..";
+import { getRelsPath } from "../../../../utils/paths";
 
-export async function modifyComments(
+export async function modifyLegacyComments(
   zip: JSZip,
   referencingRelsPath: string,
-  notesSlidePath: string,
+  commentPath: string,
   options: SweepOptions
 ): Promise<void> {
-  if (!options.remove?.comments) return;
+  if (!options.remove?.comments?.legacy) return;
 
   let referencingRelsPathFileContent = await zip
     .file(referencingRelsPath)
@@ -18,7 +18,7 @@ export async function modifyComments(
   }
 
   const pattern = new RegExp(
-    `<Relationship[^>]*[^>]*Target="[./a-zA-Z]*?${notesSlidePath
+    `<Relationship[^>]*[^>]*Target="[./a-zA-Z]*?${commentPath
       .split("/")
       .at(-1)}"[^>]*>`
   );
@@ -30,8 +30,8 @@ export async function modifyComments(
 
   zip.file(referencingRelsPath, referencingRelsPathFileContent);
 
-  const relsPath = getRelsPath(notesSlidePath);
+  const relsPath = getRelsPath(commentPath);
 
-  zip.remove(notesSlidePath);
+  zip.remove(commentPath);
   zip.remove(relsPath);
 }

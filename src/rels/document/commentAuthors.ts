@@ -1,13 +1,13 @@
 import JSZip from "jszip";
 import { SweepOptions } from "../..";
 
-export async function modifyViewProps(
+export async function modifyCommentAuthors(
   zip: JSZip,
   referencingRelsPath: string,
-  viewPropsPath: string,
+  commentAuthorsPath: string,
   options: SweepOptions
 ): Promise<void> {
-  if (options.remove?.view) {
+  if (options.remove?.authors || options.remove?.comments) {
     const referencingRelsFileContent = await zip
       .file(referencingRelsPath)
       ?.async("text");
@@ -18,15 +18,13 @@ export async function modifyViewProps(
     const updatedReferencingRelsFileContent =
       referencingRelsFileContent.replace(
         new RegExp(
-          `<Relationship[^>]*?Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/viewProps"[^>]*?\/>`
+          `<Relationship[^>]*?Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/commentAuthors"[^>]*?\/>`
         ),
         ""
       );
 
     zip.file(referencingRelsPath, updatedReferencingRelsFileContent);
 
-    console.log(updatedReferencingRelsFileContent);
-
-    zip.remove(viewPropsPath);
+    zip.remove(commentAuthorsPath);
   }
 }

@@ -3,16 +3,8 @@ import { SweepOptions } from "../..";
 import { addRelativePath, getRelsPath } from "../../utils/paths";
 import { getFileJson } from "../../utils/xml";
 import { modifyNotesSlide } from "./slide/notesSlide";
-import { modifyComments } from "./slide/comments";
-
-async function todoOverwrite(
-  zip: JSZip,
-  referencingRelsPath: string,
-  path: string,
-  options: SweepOptions
-) {
-  throw new Error("TODO: Overwrite the file");
-}
+import { modifyModernComments } from "./slide/comments/modernComments";
+import { modifyLegacyComments } from "./slide/comments/legacyComments";
 
 const relationshipTypes: Record<
   string,
@@ -27,7 +19,9 @@ const relationshipTypes: Record<
   "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image":
     undefined,
   "http://schemas.microsoft.com/office/2018/10/relationships/comments":
-    modifyComments,
+    modifyModernComments,
+  "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments":
+    modifyLegacyComments,
   "http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide":
     modifyNotesSlide,
   "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout":

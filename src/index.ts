@@ -22,6 +22,7 @@ const relationshipTypes: Record<
 
 export type SweepOptions = {
   remove?: {
+    totalTime?: boolean;
     core?: {
       title?: boolean;
       creator?: boolean;
@@ -31,9 +32,13 @@ export type SweepOptions = {
       modified?: boolean;
     };
     thumbnail?: boolean;
-    comments?: boolean;
+    comments?: {
+      legacy?: boolean;
+      modern?: boolean;
+    };
     notes?: boolean;
     authors?: boolean;
+    view?: boolean;
   };
 };
 
